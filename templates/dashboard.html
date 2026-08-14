@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Alumni & Networking Portal</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/directory">Alumni Directory</a>
+            {% if session.get('admin_id') %}
+                <a href="/admin/dashboard">Admin</a>
+            {% endif %}
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome, {{ session.get('user_name') }}!</h2>
+        <h3>Post an Update</h3>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form method="post">
+            <textarea name="content" rows="3" cols="50" placeholder="Share an update..." required></textarea><br>
+            <button type="submit">Post</button>
+        </form>
+        <h3>Recent Updates</h3>
+        <div class="posts">
+            {% for post in posts %}
+                <div class="post">
+                    <strong>{{ post.name }}</strong> <span class="timestamp">({{ post.timestamp }})</span>
+                    <p>{{ post.content }}</p>
+                </div>
+            {% else %}
+                <p>No posts yet.</p>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Alumni Portal</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni & Networking Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Alumni & Networking Portal</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/directory">Alumni Directory</a>
+            {% if session.get('admin_id') %}
+                <a href="/admin/dashboard">Admin</a>
+                <a href="/admin/logout">Admin Logout</a>
+            {% else %}
+                <a href="/admin/login">Admin</a>
+            {% endif %}
+            {% if session.get('user_id') %}
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% if show_directory %}
+            <h2>Alumni Directory</h2>
+            <table>
+                <tr><th>Photo</th><th>Name</th><th>Email</th><th>Graduation Year</th><th>Job</th><th>Company</th><th>Location</th><th>Profile</th></tr>
+                {% for alum in alumni %}
+                <tr>
+                    <td>
+                        {% if alum.photo %}
+                            <img src="{{ url_for('static', filename='uploads/' + alum.photo) }}" width="50" height="50" alt="Profile">
+                        {% else %}
+                            <span style="color: #999;">No photo</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ alum.name }}</td>
+                    <td>{{ alum.email }}</td>
+                    <td>{{ alum.grad_year }}</td>
+                    <td>{{ alum.job }}</td>
+                    <td>{{ alum.company }}</td>
+                    <td>{{ alum.location }}</td>
+                    <td><a href="/profile/{{ alum.id }}">View</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% elif show_profile %}
+            <h2>{{ profile.name }}'s Profile</h2>
+            {% if profile.photo %}
+                <img src="{{ url_for('static', filename='uploads/' + profile.photo) }}" width="150" height="150" alt="Profile Photo" style="border-radius: 5px; margin-bottom: 20px;">
+            {% endif %}
+            <ul>
+                <li><strong>Email:</strong> {{ profile.email }}</li>
+                <li><strong>Graduation Year:</strong> {{ profile.grad_year }}</li>
+                <li><strong>Job:</strong> {{ profile.job }}</li>
+                <li><strong>Company:</strong> {{ profile.company }}</li>
+                <li><strong>Location:</strong> {{ profile.location }}</li>
+            </ul>
+            <a href="/directory">Back to Directory</a>
+        {% else %}
+            <h2>Welcome to the Alumni & Networking Portal</h2>
+            <p>Connect with alumni, share updates, and grow your network!</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2026 Alumni Portal</p>
+    </footer>
+</body>
+</html>

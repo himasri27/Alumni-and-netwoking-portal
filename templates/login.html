@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Alumni & Networking Portal</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/directory">Alumni Directory</a>
+            <a href="/register">Register</a>
+            <a href="/admin/login">Admin</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form method="post">
+            <label>Email:<input type="email" name="email" required></label><br>
+            <label>Password:<input type="password" name="password" required></label><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/register">Register here</a>.</p>
+    </main>
+    <footer>
+        <p>&copy; 2026 Alumni Portal</p>
+    </footer>
+</body>
+</html>

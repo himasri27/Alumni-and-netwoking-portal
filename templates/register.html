@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Alumni & Networking Portal</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/directory">Alumni Directory</a>
+            <a href="/login">Login</a>
+            <a href="/admin/login">Admin</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form method="post" enctype="multipart/form-data">
+            <label>Name:<input type="text" name="name" required></label><br>
+            <label>Email:<input type="email" name="email" required></label><br>
+            <label>Password:<input type="password" name="password" required></label><br>
+            <label>Graduation Year:<input type="text" name="grad_year"></label><br>
+            <label>Job:<input type="text" name="job"></label><br>
+            <label>Company:<input type="text" name="company"></label><br>
+            <label>Location:<input type="text" name="location"></label><br>
+            <label>Profile Photo (JPG, PNG - optional):<input type="file" name="photo" accept=".jpg,.jpeg,.png"></label><br>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
+    </main>
+    <footer>
+        <p>&copy; 2026 Alumni Portal</p>
+    </footer>
+</body>
+</html>

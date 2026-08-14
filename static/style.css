@@ -1,0 +1,102 @@
+/* style.css - Alumni Portal */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+}
+nav a {
+    color: #fff;
+    margin: 0 1em;
+    text-decoration: none;
+    font-weight: bold;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+main {
+    max-width: 800px;
+    margin: 2em auto;
+    background: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+h2, h3 {
+    color: #2c3e50;
+}
+form label {
+    display: block;
+    margin: 1em 0 0.5em;
+}
+input, textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+button:hover {
+    background: #1abc9c;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 0.7em;
+    text-align: left;
+}
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+.flashes li {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+.flashes .success { background: #d4edda; color: #155724; }
+.flashes .danger { background: #f8d7da; color: #721c24; }
+.flashes .info { background: #d1ecf1; color: #0c5460; }
+.posts {
+    margin-top: 1em;
+}
+.post {
+    border-bottom: 1px solid #eee;
+    padding: 1em 0;
+}
+.timestamp {
+    color: #888;
+    font-size: 0.9em;
+}
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background: #2c3e50;
+    color: #fff;
+    margin-top: 2em;
+    border-radius: 0 0 8px 8px;
+}

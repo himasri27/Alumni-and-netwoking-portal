@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Alumni Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/directory">Alumni Directory</a>
+            <a href="/admin/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome, {{ session.get('admin_username') }}</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <section>
+            <h3>Registered Users</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Grad Year</th>
+                        <th>Job</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>
+                            {% if user.photo %}
+                                <img src="{{ url_for('static', filename='uploads/' + user.photo) }}" width="40" height="40" alt="Profile">
+                            {% else %}
+                                <span style="color: #999;">—</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.grad_year }}</td>
+                        <td>{{ user.job }}</td>
+                        <td>{{ user.company }}</td>
+                        <td>{{ user.location }}</td>
+                        <td>{{ 'Approved' if user.approved else 'Pending' }}</td>
+                        <td>
+                            <a href="/profile/{{ user.id }}">View</a>
+                            {% if not user.approved %}
+                            <form method="post" action="/admin/approve_user/{{ user.id }}" style="display:inline">
+                                <button type="submit">Approve</button>
+                            </form>
+                            {% endif %}
+                            <form method="post" action="/admin/delete_user/{{ user.id }}" style="display:inline">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section style="margin-top: 2em;">
+            <h3>User Posts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Content</th>
+                        <th>Timestamp</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td>{{ post.user_name }}</td>
+                        <td>{{ post.content }}</td>
+                        <td>{{ post.timestamp }}</td>
+                        <td>
+                            <form method="post" action="/admin/delete_post/{{ post.post_id }}" style="display:inline">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Alumni Portal</p>
+    </footer>
+</body>
+</html>
